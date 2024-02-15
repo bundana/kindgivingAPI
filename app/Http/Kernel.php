@@ -21,6 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // \Spatie\CookieConsent\CookieConsentMiddleware::class, 
     ];
 
     /**
@@ -63,6 +64,9 @@ class Kernel extends HttpKernel
         'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class, 
+        'checkIfLoggedIn' => \App\Http\Middleware\CheckIfLoggedIn::class,
+        'CheckUserRole' => \App\Http\Middleware\CheckUserRole::class,
+        'role' => \App\Http\Middleware\CheckUserRole::class,
     ];
 }
