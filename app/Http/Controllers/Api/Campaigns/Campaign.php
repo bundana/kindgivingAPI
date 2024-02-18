@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Campaigns;
 
 use App\Http\Controllers\Api\Auth\Bearer;
 use App\Http\Controllers\Controller;
-use App\Http\Traits\Auth\BearerTrait;
+use App\Http\Traits\Auth\{BearerTrait, RequestMethod}; 
 use App\Models\Campaigns\Campaign as CampaignsCampaign;
 use App\Models\User;
 use App\Models\Campaigns\{Campaign as CampaignModel};
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class Campaign extends Controller
 {
-    use BearerTrait;
+    use BearerTrait, RequestMethod;
     /**
      * Display a listing of the resource.
      */
@@ -36,6 +36,10 @@ class Campaign extends Controller
      */
     public function show(Request $request)
     {
+        $requestMethod = $this->get($request);
+        if($requestMethod instanceof \Illuminate\Http\JsonResponse) {
+            return $requestMethod;
+        }
         // Verify the bearer token
         $decodedToken = $this->verifyToken($request);
         if ($decodedToken instanceof \Illuminate\Http\JsonResponse) {
@@ -78,7 +82,7 @@ class Campaign extends Controller
             return response()->json(['success' => true, 'message' => 'Campaign retrieved successfully', 'data' => $campaign]);
         } catch (\Exception $e) {
             // Handle errors
-            return response()->json(['success' => false, 'message' => 'Request could not be fulfilled due to an error on KindGiving\'s end.', 'errorCode' => 500], 500);
+            return response()->json(['success' => false, 'message' => 'Request could not be fulfilled due to an error on KindGiving\'s end.'.$e, 'errorCode' => 500], 500);
         }
     }
 

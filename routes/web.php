@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{UsersController};
 use App\Http\Controllers\Api\Campaigns\Campaign;
 use App\Http\Controllers\Api\Campaigns\Donation;
+use App\Http\Controllers\Api\Payments\Hubtel;
+use App\Http\Controllers\Api\Payments\WebHooks;
+use Bundana\Services\Messaging\Mnotify;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +42,30 @@ Route::prefix('v1')->name('v1.')->group(function () {
   // Route::delete('users/{user}', [UsersController::class, 'destroy']);
 
 
-  Route::get('users/profile', [UsersController::class, 'show']);
-  Route::get('campaigns/info', [Campaign::class, 'show']);
-  Route::get('campaigns/donations/single', [Donation::class, 'show']);
-  Route::post('campaigns/donations/create', [Donation::class, 'store']);
+  Route::any('users/profile', [UsersController::class, 'show']);
+  Route::any('campaigns/info', [Campaign::class, 'show']);
+  Route::any('campaigns/donations/single', [Donation::class, 'show']);
+  Route::any('campaigns/donations/create', [Donation::class, 'store']);
+  Route::any('campaigns/donations/create/payment', [Donation::class, 'storeWithPayment']);
 
+  // Payment routes
+  Route::any('payments/hubtel/direct', [Hubtel::class, 'directPaymentPromt']);
+
+  
+  Route::any('payments/webhooks/hubtel/', [WebHooks::class, 'directUssdWebhook']);
+
+  
+  Route::prefix('utilites')->name('utilites.')->group(function () {
+    Route::any('/shorturl', [UrlGenerator::class, 'newUrl'])->name('generate_url');
+    Route::any('/sms/mnotify', function(Request $request){
+      $recipientPhone = $request->input('recipientPhone');
+      $recipientPhone = preg_replace('/^233/', '', $recipientPhone);
+      $smsContent = $request->input('smsContent'); 
+      Mnotify::to($recipientPhone)
+      ->message($smsContent)
+      ->send();
+    })->name('sms');
+});
 });
 
 

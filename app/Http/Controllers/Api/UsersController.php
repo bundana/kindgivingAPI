@@ -1,17 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
-use App\Http\Controllers\Api\Auth\Bearer;
+ 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\Auth\BearerTrait;
+use App\Http\Traits\Auth\{BearerTrait, RequestMethod}; 
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
-    use BearerTrait;
+    use BearerTrait, RequestMethod;
     private const VERSION = 1;
 
     public function index()
@@ -28,6 +27,7 @@ class UsersController extends Controller
 
     public function show(Request $request)
     {
+        $this->get($request);
         // Verify the bearer token
         $decodedToken = $this->verifyToken($request);
         if ($decodedToken instanceof \Illuminate\Http\JsonResponse) {
@@ -58,7 +58,7 @@ class UsersController extends Controller
 
         try {
                // Fetch user info based on user_id
-               $user = User::select('name as full_name', 'email', 'phone_number as phone', 'avatar')
+               $user = User::select('name as full_name', 'email', 'phone_number as phone', 'avatar', 'role')
                ->where('phone_number', $request->phone)
                ->orWhere('user_id', $request->phone)
                ->first();

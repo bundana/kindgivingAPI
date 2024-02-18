@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49dc6a2b3099327adcad3c35c6cf753c",
+    "content-hash": "6aa79dd6564d9186a720a530683b0260",
     "packages": [
         {
             "name": "ashallendesign/short-url",
@@ -135,6 +135,44 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "bundana/services",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bundana/Laravel-Value-Added-Services.git",
+                "reference": "4a12e4e7d0ca43f41b623119bdd29fd19a1d9b92"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bundana/Laravel-Value-Added-Services/zipball/4a12e4e7d0ca43f41b623119bdd29fd19a1d9b92",
+                "reference": "4a12e4e7d0ca43f41b623119bdd29fd19a1d9b92",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Bundana\\Services\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "bundana",
+                    "email": "bundanaabdulhafiz@gmail.com"
+                }
+            ],
+            "description": "List of API services for development e.g. SMS, WhatsApp, email, etc.",
+            "homepage": "https://github.com/bundana/Laravel-Value-Added-Services",
+            "support": {
+                "issues": "https://github.com/bundana/Laravel-Value-Added-Services/issues",
+                "source": "https://github.com/bundana/Laravel-Value-Added-Services/tree/v1.0.0"
+            },
+            "time": "2024-02-18T09:37:52+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",

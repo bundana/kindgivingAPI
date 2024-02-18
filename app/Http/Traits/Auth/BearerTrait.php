@@ -16,6 +16,7 @@ trait BearerTrait
     private static function verifyToken(Request $request)
     {
         $bearerToken = '6Lfz5mMpAAAAAAA4';
+        
         // Extract the token from the Authorization header
         $token = $request->bearerToken();
 

@@ -66,7 +66,7 @@ class SMS extends Controller
         $response_obj = json_decode($sms_response);
         $sms_delivery_status = ($response_obj->status ?? null === 'success') ? 'Sent' : 'Failed';
         $sms_error_message = ($sms_delivery_status === 'Failed') ? $response_obj->message ?? null : '';
-
+        return $sms_error_message;
         // // Insert SMS delivery status and information into the database using Eloquent
         // DB::table('messages')->insert([
         //     'sender_name' => WEB_TITLE,

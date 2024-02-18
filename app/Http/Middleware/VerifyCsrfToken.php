@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except =  [
         'http://donation.local/api/*',
-        'http://127.0.0.1:8000/v1/*' 
+        'http://127.0.0.1:8000/v1/*',
+        'https://api.kindgiving.org/v1/*'
     ];
 }
